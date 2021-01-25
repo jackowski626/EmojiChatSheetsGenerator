@@ -1,4 +1,6 @@
-.production/*
-.production/
-.cache/*
-.cache/
+production/*
+production/
+cache/*
+cache/
+cache/images/*
+cache/images/
