@@ -4,3 +4,5 @@ cache/*
 cache/
 cache/images/*
 cache/images/
+assets/custom_emojis/*
+assets/custom_emojis/

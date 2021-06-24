@@ -43,6 +43,9 @@ TEMP_UNZIPPED_DIR = './temp/unzipped/'
 PRODUCTION_DIR = './production'
 
 #--- FUNCTIONS
+def setup():
+	Path(PRODUCTION_DIR).mkdir(parents=True, exist_ok=True)
+
 def get_emoji_json_data():
 	with open(EMOJI_JSON_DIR, encoding="utf8") as f:
 		return json.load(f)
@@ -92,6 +95,8 @@ def gen_name_filename_json():
 	for key in data:
 		for subkey in data[key]:
 			new_data[subkey] = IMAGE_DIR + '/' + get_image_name_from_unicode(data[key][subkey], subkey)
+	if not os.path.exists(CUSTOM_EMOJIS):
+		os.makedirs(CUSTOM_EMOJIS)
 	folder = os.listdir(CUSTOM_EMOJIS)
 	for picture in folder:
 		new_data[picture[:picture.rfind('.')]] = CUSTOM_EMOJIS + '/' + picture
@@ -130,16 +135,16 @@ def create_lists():
 	Path('./temp').mkdir(parents=True, exist_ok=True)
 	file_data = get_filename_json_data()
 	#print(len(file_data.keys()))
-	with open('./production/emoji_list.txt', 'w') as f:
+	with open(os.path.join(PRODUCTION_DIR, 'emoji_list.txt'), 'w') as f:
 		for key in file_data:
 			f.write('%s\n' % key)
-	with open('./production/server_emojis.txt', 'w') as f:
+	with open(os.path.join(PRODUCTION_DIR, 'server_emojis.txt'), 'w') as f:
 		folder = os.listdir(CUSTOM_EMOJIS)
 		for file in folder:
 			f.write("%s\n" % file[:file.rfind('.')])
-	with open('./production/emoji_aliases.txt', 'w') as f:
+	with open(os.path.join(PRODUCTION_DIR, 'emoji_aliases.txt'), 'w') as f:
 		f.write('Put emoji aliases here, one at each line, corresponding to alphabetical order of image files')
-	with open('./production/server_emoji_ids.txt', 'w') as f:
+	with open(os.path.join(PRODUCTION_DIR, 'server_emoji_ids.txt'), 'w') as f:
 		f.write('Put emoji ids here, one at each line, corresponding to alphabetical order of image files')
 	#with open('./production/emoji_list_colons.txt', 'w') as f:
 	#	for key in file_data:
@@ -251,6 +256,7 @@ def handle_emoji_dl():
 handle_emoji_dl()
 
 
+setup()
 gen_name_filename_json()
 check_images()
 create_lists()
