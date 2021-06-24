@@ -1,6 +1,6 @@
 {
-	"PACK_NAME":"Emojis",
-	"PACK_DESCRIPTION":"Emojis for homo sapien's server",
+	"PACK_NAME":"Pack name",
+	"PACK_DESCRIPTION":"Pack description",
 	"PACK_VERSION":"1.0.0",
 	"SHEET_WIDTH":256,
 	"EMOJI_WIDTH":16,
